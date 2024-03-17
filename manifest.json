@@ -1,0 +1,21 @@
+{
+  "name": "Photo Frame",
+  "id": "1343517018956496378",
+  "api": "1.0.0",
+  "main": "dist/code.js",
+  "ui": "dist/ui.html",
+  "capabilities": [],
+  "enableProposedApi": false,
+  "editorType": [
+    "figma",
+    "figjam"
+  ],
+  "networkAccess": {
+    "allowedDomains": [
+      "none"
+    ]
+  },
+  "containsWidget": true,
+  "widgetApi": "1.0.0",
+  "documentAccess": "dynamic-page"
+}
