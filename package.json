@@ -4,6 +4,7 @@
   "description": "Photo Frame widget",
   "scripts": {
     "build": "webpack --mode production",
+    "dev": "webpack --watch --mode development",
     "build-app": "esbuild src/app.tsx --bundle --outfile=dist/code.js --target=es6"
   },
   "author": "sonnylazuardi",
@@ -13,6 +14,7 @@
     "@figma/widget-typings": "*",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
+    "@types/react-dropzone": "^5.1.0",
     "@typescript-eslint/eslint-plugin": "^6.12.0",
     "@typescript-eslint/parser": "^6.12.0",
     "esbuild": "*",
@@ -43,6 +45,7 @@
     }
   },
   "dependencies": {
+    "autoprefixer": "^10.4.14",
     "css-loader": "^6.2.0",
     "exifreader": "^4.21.1",
     "heic2any": "^0.0.4",
@@ -56,12 +59,12 @@
     "react": "^18.2.0",
     "react-dev-utils": "^11.0.4",
     "react-dom": "^18.2.0",
+    "react-dropzone": "^14.2.3",
     "react-lottie-player": "^1.5.6",
     "style-loader": "^3.2.1",
+    "tailwindcss": "^3.2.7",
     "ts-loader": "^9.5.1",
     "webpack": "^5.51.1",
-    "webpack-cli": "^4.8.0",
-    "tailwindcss": "^3.2.7",
-    "autoprefixer": "^10.4.14"
+    "webpack-cli": "^4.8.0"
   }
 }

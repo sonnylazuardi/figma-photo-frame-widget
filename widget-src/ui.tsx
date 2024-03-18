@@ -3,7 +3,8 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import Heic2Any from "heic2any";
 import { domToPng } from "modern-screenshot";
-const { useEffect, useRef, useState } = React;
+import { useDropzone } from "react-dropzone";
+const { useEffect, useRef, useState, useCallback } = React;
 import "./ui.css";
 
 function Home() {
@@ -13,6 +14,15 @@ function Home() {
   const [result, setResult] = useState<string | null>(null);
   const [metadata, setMetadata] = useState<ExifReader.Tags | null>(null);
   const refWrap = useRef<HTMLDivElement>(null);
+  const onDrop = useCallback((acceptedFiles) => {
+    setFiles(acceptedFiles);
+  }, []);
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    accept: {
+      "image/*": [".jpg", ".jpeg", ".png", ".webp", ".heic"],
+    },
+  });
 
   useEffect(() => {
     if (files) {
@@ -57,21 +67,21 @@ function Home() {
     <div className="min-h-svh">
       <div className="navbar bg-base-100 shadow-lg">
         <div className="flex-1 p-4">
-          <a className={`btn btn-ghost text-3xl`}>What The Frame</a>
+          <a className={`btn btn-ghost text-lg font-semibold`}>Photo Frame</a>
         </div>
       </div>
-      <div className="container mx-auto space-y-4 py-6 p-2">
+      <div className="container mx-auto space-y-4 py-6 p-4">
         {files && !result ? (
           <p className="text-center">Processing...</p>
         ) : (
           <></>
         )}
         {result ? (
-          <div className="space-y-4 flex items-center flex-col">
+          <div className="space-y-4 flex items-center flex-col pb-40">
             <img src={result} className="max-w-sm w-full border" alt="Image" />
-            <div className="flex gap-3">
+            <div className="flex gap-3 fixed bottom-0 left-0 right-0 bg-white p-4 justify-center">
               <button
-                className="btn btn-ghost"
+                className="px-3 py-2 hover:bg-neutral-50 rounded-md"
                 onClick={() => {
                   setFiles(null);
                   setBlob(null);
@@ -81,8 +91,8 @@ function Home() {
               >
                 Generate Again
               </button>
-              <a
-                className="btn btn-neutral cursor-pointer p-4"
+              <button
+                className="px-3 py-2 hover:bg-neutral-50 rounded-md"
                 onClick={handleResult}
               >
                 <svg
@@ -102,7 +112,7 @@ function Home() {
                   <path d="M7 11l5 5l5 -5" />
                   <path d="M12 4l0 12" />
                 </svg>
-              </a>
+              </button>
             </div>
           </div>
         ) : (
@@ -164,14 +174,23 @@ function Home() {
             </div>
           </div>
         ) : (
-          <div className="space-y-4 flex items-center flex-col">
-            <input
-              type="file"
-              multiple={false}
-              className="file-input w-full max-w-xs"
-              onChange={(e) => setFiles(e.target.files)}
-              accept="image/*,.heic"
-            />
+          <div className="space-y-4 flex flex-1 items-center flex-col">
+            <div
+              {...getRootProps()}
+              className="border-dashed border-2 border-neutral-200 rounded-2xl flex flex-1 flex-col items-center justify-center p-6 cursor-pointer min-h-64 w-full"
+            >
+              <img src={require("./images/logo.webp")} className="w-20 h-20" />
+              <input {...getInputProps()} />
+              <div className="text-sm text-neutral-500 text-center">
+                {isDragActive ? (
+                  <div>Drop the photo here ...</div>
+                ) : (
+                  <div>
+                    Drag 'n' drop a photo here, or click here to select photo
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
         )}
       </div>
