@@ -26,11 +26,11 @@ function PhotoFrameWidget() {
     <AutoLayout
       direction="vertical"
       fill={"#FFFFFF"}
-      padding={32}
+      padding={!imageURL ? 32 : 0}
       spacing={16}
-      cornerRadius={20}
+      cornerRadius={!imageURL ? 20 : 0}
       stroke={"#E6E6E6"}
-      strokeWidth={1}
+      strokeWidth={!imageURL ? 1 : 0}
     >
       {!imageURL ? (
         <AutoLayout direction="vertical" spacing={16}>
